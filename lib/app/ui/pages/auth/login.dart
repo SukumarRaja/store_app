@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:store_app/app/ui/pages/home/main.dart';
 import '../../../controller/auth.dart';
+import '../../themes/colors.dart';
+import '../../themes/font_size.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_text.dart';
 import '../../widgets/common_textform_field.dart';
+import 'register.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,7 +17,16 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: CommonText(
+              text: "Login",
+              fontSize: AppFontSize.twentyFour,
+              fontColor: AppColors.primary,
+            ),
+          ),
           Form(
             key: AuthController.to.loginKey,
             child: Column(
@@ -44,17 +57,23 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-          TextButton(
-              onPressed: () {},
-              child: const CommonText(
-                text: "Forgot Password?",
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  onPressed: () {},
+                  child: const CommonText(
+                    text: "Forgot Password ?",
+                  )),
+            ],
+          ),
           CommonButton(
             text: "Login",
             onPressed: () {
-              if (AuthController.to.loginKey.currentState!.validate()) {
-                AuthController.to.login();
-              }
+              // if (AuthController.to.loginKey.currentState!.validate()) {
+              //   AuthController.to.login();
+              // }
+              Get.to(()=>HomeMain());
             },
           ),
           Row(
@@ -63,11 +82,13 @@ class Login extends StatelessWidget {
               const CommonText(
                 text: "Don't have an account",
               ),
-              SizedBox(width: Get.width * 0.04),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const Register());
+                  },
                   child: const CommonText(
                     text: "Signup",
+                    fontColor: AppColors.primary,
                   )),
             ],
           )
